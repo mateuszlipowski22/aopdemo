@@ -17,6 +17,10 @@ public class AopDemoApplication {
     public CommandLineRunner commandLineRunner(AccountDAO accountDAO) {
         return runner -> {
 			demoTheBeforeAdvice(accountDAO);
+
+            System.out.println("Call teh business method again");
+
+			demoTheBeforeAdvice(accountDAO);
         };
     }
 
