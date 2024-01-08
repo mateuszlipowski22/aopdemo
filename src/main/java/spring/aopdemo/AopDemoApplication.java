@@ -28,5 +28,7 @@ public class AopDemoApplication {
 
         membershipDAO.addAccount();
 
+        membershipDAO.addSillyMember();
+
 	}
 }
