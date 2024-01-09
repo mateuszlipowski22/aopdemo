@@ -8,7 +8,7 @@ import spring.aopdemo.Account;
 public class AccountDAOImpl implements AccountDAO {
 
     @Override
-    public void addAccount(Account account) {
+    public void addAccount(Account account, boolean isVipPerson) {
         System.out.println(getClass() + " : DOING MY DB WORK : ADDING AN ACCOUNT");
     }
 

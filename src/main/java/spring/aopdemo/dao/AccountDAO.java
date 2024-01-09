@@ -4,6 +4,6 @@ import spring.aopdemo.Account;
 
 public interface AccountDAO {
 
-    void addAccount(Account account);
+    void addAccount(Account account, boolean isVipPerson);
 
 }
