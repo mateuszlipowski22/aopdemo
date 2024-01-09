@@ -3,11 +3,12 @@ package spring.aopdemo;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import spring.aopdemo.dao.AccountDAO;
 import spring.aopdemo.dao.MembershipDAO;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = JmxAutoConfiguration.class)
 public class AopDemoApplication {
 
     public static void main(String[] args) {
