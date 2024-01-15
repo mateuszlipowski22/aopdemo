@@ -19,12 +19,21 @@ public class MyDemoLoggingAspect {
     @Pointcut("execution(* spring.aopdemo.dao.*.*( .. ))")
     private void forDaoPackage(){};
 
-    @Before("forDaoPackage()")
+    @Pointcut("execution(* spring.aopdemo.dao.*.get*( .. ))")
+    private void getter(){};
+
+    @Pointcut("execution(* spring.aopdemo.dao.*.set*( .. ))")
+    private void setter(){};
+
+    @Pointcut("forDaoPackage() && !(getter() || setter())")
+    private void forDaoPackageExcludeGetterAndSetter(){};
+
+    @Before("forDaoPackageExcludeGetterAndSetter()")
     public void beforeAddAccountAdvice(){
         System.out.println(getClass() + " : \n==========>>>> Executing @Before advice an addAccount()");
     }
 
-    @Before("forDaoPackage()")
+    @Before("forDaoPackageExcludeGetterAndSetter()")
     public void performApiAnalytics(){
         System.out.println(getClass() + " : \n==========>>>> Performing API analytics");
     }

@@ -35,5 +35,12 @@ public class AopDemoApplication {
         membershipDAO.goToSleep();
 
         accountDAO.doWork();
+
+        accountDAO.setName("foobar");
+        accountDAO.setServiceCode("silver");
+
+        String name = accountDAO.getName();
+        String serviceCode = accountDAO.getServiceCode();
+
 	}
 }
