@@ -17,10 +17,15 @@ public class MyDemoLoggingAspect {
 //    @Before("execution(* spring.aopdemo.dao.*.*( .. ))")
 
     @Pointcut("execution(* spring.aopdemo.dao.*.*( .. ))")
-    private void beforeAnyDao(){};
+    private void forDaoPackage(){};
 
-    @Before("beforeAnyDao()")
+    @Before("forDaoPackage()")
     public void beforeAddAccountAdvice(){
         System.out.println(getClass() + " : \n==========>>>> Executing @Before advice an addAccount()");
+    }
+
+    @Before("forDaoPackage()")
+    public void performApiAnalytics(){
+        System.out.println(getClass() + " : \n==========>>>> Performing API analytics");
     }
 }
