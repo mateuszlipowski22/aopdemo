@@ -1,9 +1,12 @@
 package spring.aopdemo.aspect;
 
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+import spring.aopdemo.Account;
 
 @Aspect
 @Component
@@ -11,7 +14,23 @@ import org.springframework.stereotype.Component;
 public class MyDemoLoggingAspect {
 
     @Before("spring.aopdemo.aspect.AopExpressions.forDaoPackageExcludeGetterAndSetter()")
-    public void beforeAddAccountAdvice() {
+    public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {
         System.out.println(getClass() + " : \n==========>>>> Executing @Before advice an addAccount()");
+
+        MethodSignature methodSignature = (MethodSignature) theJoinPoint.getSignature();
+
+        System.out.println("Method : " + methodSignature);
+
+        Object[] args = theJoinPoint.getArgs();
+
+        for(Object tempArg : args){
+            System.out.println(tempArg);
+
+            if(tempArg instanceof Account){
+                Account account = (Account) tempArg;
+                System.out.println("account name : "+account.getName());
+                System.out.println("account level : "+account.getLevel());
+            }
+        }
     }
 }
