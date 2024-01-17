@@ -9,6 +9,9 @@ public class Account {
         this.level = level;
     }
 
+    public Account() {
+    }
+
     public String getName() {
         return name;
     }
@@ -23,5 +26,13 @@ public class Account {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "name='" + name + '\'' +
+                ", level='" + level + '\'' +
+                '}';
     }
 }
