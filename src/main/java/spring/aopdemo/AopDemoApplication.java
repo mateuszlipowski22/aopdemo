@@ -23,23 +23,45 @@ public class AopDemoApplication {
 
 //			demoTheBeforeAdvice(accountDAO,membershipDAO);
 //            demoTheAfterReturningAdvice(accountDAO);
-            demoTheAfterThrowingAdvice(accountDAO);
+//            demoTheAfterThrowingAdvice(accountDAO);
+            demoTheAfterAdvice(accountDAO);
+
         };
     }
 
-    private void demoTheAfterThrowingAdvice(AccountDAO accountDAO) {
+    private void demoTheAfterAdvice(AccountDAO accountDAO) {
         List<Account> accounts = null;
-        try{
-            boolean tripWire = true;
+        try {
+            boolean tripWire = false;
             accounts = accountDAO.findAccounts(tripWire);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("\n\nMain program : ... caught the excpetion " + e);
         }
 
         System.out.println("\n\nMain program : demoTheAfterReturningAdvice");
         System.out.println("-".repeat(20));
 
-        for (Account account : accounts){
+        for (Account account : accounts) {
+            System.out.println(account);
+            System.out.println("-".repeat(20));
+        }
+
+        System.out.println("\n");
+    }
+
+    private void demoTheAfterThrowingAdvice(AccountDAO accountDAO) {
+        List<Account> accounts = null;
+        try {
+            boolean tripWire = true;
+            accounts = accountDAO.findAccounts(tripWire);
+        } catch (Exception e) {
+            System.out.println("\n\nMain program : ... caught the excpetion " + e);
+        }
+
+        System.out.println("\n\nMain program : demoTheAfterReturningAdvice");
+        System.out.println("-".repeat(20));
+
+        for (Account account : accounts) {
             System.out.println(account);
             System.out.println("-".repeat(20));
         }
@@ -54,7 +76,7 @@ public class AopDemoApplication {
         System.out.println("\n\nMain program : demoTheAfterReturningAdvice");
         System.out.println("-".repeat(20));
 
-        for (Account account : accounts){
+        for (Account account : accounts) {
             System.out.println(account);
             System.out.println("-".repeat(20));
         }
@@ -63,8 +85,8 @@ public class AopDemoApplication {
     }
 
     private void demoTheBeforeAdvice(AccountDAO accountDAO, MembershipDAO membershipDAO) {
-        Account account = new Account("Joe","Proficient");
-		accountDAO.addAccount(account, true);
+        Account account = new Account("Joe", "Proficient");
+        accountDAO.addAccount(account, true);
 
         membershipDAO.addAccount();
 
@@ -80,5 +102,5 @@ public class AopDemoApplication {
         String name = accountDAO.getName();
         String serviceCode = accountDAO.getServiceCode();
 
-	}
+    }
 }

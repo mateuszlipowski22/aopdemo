@@ -1,10 +1,7 @@
 package spring.aopdemo.aspect;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.AfterThrowing;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -27,13 +24,13 @@ public class MyDemoLoggingAspect {
 
         Object[] args = theJoinPoint.getArgs();
 
-        for(Object tempArg : args){
+        for (Object tempArg : args) {
             System.out.println(tempArg);
 
-            if(tempArg instanceof Account){
+            if (tempArg instanceof Account) {
                 Account account = (Account) tempArg;
-                System.out.println("account name : "+account.getName());
-                System.out.println("account level : "+account.getLevel());
+                System.out.println("account name : " + account.getName());
+                System.out.println("account level : " + account.getLevel());
             }
         }
     }
@@ -41,11 +38,11 @@ public class MyDemoLoggingAspect {
     @AfterReturning(
             pointcut = "execution(* spring.aopdemo.dao.AccountDAO.findAccounts(..))",
             returning = "result")
-    public void afterReturningFindAccountsAdvice(JoinPoint joinPoint, List<Account> result){
+    public void afterReturningFindAccountsAdvice(JoinPoint joinPoint, List<Account> result) {
 
         String method = joinPoint.getSignature().getName();
 
-        System.out.println("\n======> : " +method);
+        System.out.println("\n======> : " + method);
         System.out.println(result);
         convertAccountNamesToUpperCase(result);
         System.out.println(result);
@@ -59,9 +56,15 @@ public class MyDemoLoggingAspect {
             pointcut = "execution(* spring.aopdemo.dao.AccountDAO.findAccounts(..))",
             throwing = "exception"
     )
-    public void afterThrowingFindAccounts(JoinPoint joinPoint, Throwable exception){
+    public void afterThrowingFindAccounts(JoinPoint joinPoint, Throwable exception) {
         String method = joinPoint.getSignature().getName();
-        System.out.println(getClass() + " : \n==========>>>> Executing @AfterThrowing advice " +method);
-        System.out.println("\n======> The exception is : " +exception);
+        System.out.println(getClass() + " : \n==========>>>> Executing @AfterThrowing advice " + method);
+        System.out.println("\n======> The exception is : " + exception);
+    }
+
+    @After("execution(* spring.aopdemo.dao.AccountDAO.findAccounts(..))")
+    public void afterFinallyFindAccountsAdvice(JoinPoint joinPoint) {
+        String method = joinPoint.getSignature().getName();
+        System.out.println(getClass() + " : \n==========>>>> Executing @After (finally) advice " + method);
     }
 }
