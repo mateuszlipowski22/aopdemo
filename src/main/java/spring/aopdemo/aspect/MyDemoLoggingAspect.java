@@ -70,7 +70,7 @@ public class MyDemoLoggingAspect {
     }
 
     @Around("execution(* spring.aopdemo.service.*.getFortune(..))")
-    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) {
+    public Object aroundGetFortune(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         String method = proceedingJoinPoint.getSignature().getName();
         System.out.println(getClass() + " : \n==========>>>> Executing @Around advice " + method);
         long begin = System.currentTimeMillis();
@@ -79,7 +79,8 @@ public class MyDemoLoggingAspect {
             result = proceedingJoinPoint.proceed();
         } catch (Throwable e) {
             System.out.println(e.getMessage());
-            result = "Major accident! But no worries, your private AOP helicopter is on the way";
+//            result = "Major accident! But no worries, your private AOP helicopter is on the way";
+            throw e;
         }
         long end = System.currentTimeMillis();
         long duration=end-begin;
